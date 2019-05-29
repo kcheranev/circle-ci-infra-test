@@ -29,7 +29,7 @@ resource "kubernetes_deployment" "circle-ci-test" {
           "mcs.mail.ru/mcs-nodepool" = "default-group"
         }
         container {
-          image = "diblack/circle-ci-test:${var.circle-ci-test__version}"
+          image = "kcheranev/circleci-demo:${var.circle-ci-test__version}"
           name = "circle-ci-test"
           port {
             container_port = 8080
