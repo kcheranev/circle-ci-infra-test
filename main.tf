@@ -14,13 +14,6 @@ resource "kubernetes_deployment" "circle-ci-test" {
   spec {
     replicas = 2
     selector {
-      match_expressions {
-        key = "mcs.mail.ru/mcs-nodepool"
-        operator = "In"
-        values = [
-          "default-group"
-        ]
-      }
       match_labels = {
         app = "circle-ci-test"
       }
@@ -32,6 +25,9 @@ resource "kubernetes_deployment" "circle-ci-test" {
         }
       }
       spec {
+        node_selector = {
+          "mcs.mail.ru/mcs-nodepool" = "default-group"
+        }
         container {
           image = "diblack/circle-ci-test:${var.circle-ci-test__version}"
           name = "circle-ci-test"
